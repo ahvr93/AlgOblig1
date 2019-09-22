@@ -17,6 +17,7 @@ public class Main extends Application {
 	}
     int n = 0;
     double vinkel;
+    double stamme;
     Pane pane = new Pane();
      
     public void paint() {
@@ -33,9 +34,10 @@ public class Main extends Application {
         	line.setEndX(x+xmove);
         	line.setEndY(y+ymove);
         	pane.getChildren().add(line);
-        }else if(lengde>=30) {
-        	printTree(n-1, lengde-10, vinkel+this.vinkel, x+xmove, y+ymove); // Vinkel på greiner
-        	printTree(n-1, lengde-10, vinkel-this.vinkel, x+xmove, y+ymove); // Vinkel på greiner
+        }else if(lengde>=2) {
+        	printTree(n-1, lengde-stamme, vinkel+this.vinkel, x+xmove, y+ymove); // Vinkel på greiner
+        	printTree(n-1, lengde-stamme, vinkel-this.vinkel, x+xmove, y+ymove); // Vinkel på greiner
+        	System.out.println(lengde);
         	line.setStartX(x);
         	line.setStartY(y);
         	line.setEndX(x+xmove);
@@ -47,10 +49,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane pane = new BorderPane();
 		VBox meny = new VBox();
-		meny.setPadding(new Insets(20,0,0,100));
+		meny.setPadding(new Insets(20,0,0,10));
 		pane.setLeft(meny);
 		
-		Scene scene = new Scene(pane, 300, 200);
+		Scene scene = new Scene(pane, 400, 200);
 		primaryStage.setTitle("Tegn tre");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -65,13 +67,15 @@ public class Main extends Application {
 		// Tekstfelt
 		TextField nivåTxt = new TextField("");
 		TextField vinkelTxt = new TextField("");
+		TextField stammeTxt = new TextField("");
 		Label nivåLb = new Label("Nivå: ");
 		Label vinkelLb = new Label("Vinkel: ");
+		Label stammeLb = new Label("Hvor lang skal neste grein være ift. stammen? eg: 20 for 20% mindre");
 		TextField status = new TextField("");
 		Label blank = new Label("");
 		Label blank2 = new Label("");
 		status.setEditable(false);
-		meny.getChildren().addAll(nivåLb, nivåTxt, vinkelLb, vinkelTxt, blank, ok, blank2, status);
+		meny.getChildren().addAll(nivåLb, nivåTxt, vinkelLb, vinkelTxt, stammeLb, stammeTxt, blank, ok, blank2, status);
 		
 		ok.setOnMouseClicked(e -> {
 			if(nivåTxt.getText().equals("") || vinkelTxt.getText().equals("")) {
@@ -79,6 +83,7 @@ public class Main extends Application {
 			}else {
 				n = Integer.parseInt(nivåTxt.getText());
 				vinkel = Double.parseDouble(vinkelTxt.getText());
+				stamme = Double.parseDouble(stammeTxt.getText());
 				tegneBrett();
 			}
 		});	
