@@ -20,15 +20,7 @@ public class Main extends Application {
     Pane pane = new Pane();
      
     public void paint() {
-<<<<<<< refs/remotes/Oblig/master
-<<<<<<< refs/remotes/Oblig/master
-        printTree(5,100, 0, 600, 550);    
-=======
-        printTree(6,100, 0, 400, 550);    
->>>>>>> tre
-=======
         printTree(n, 100, 0, 400, 550);    
->>>>>>> 123
     }
   
     public void printTree(int n, double lengde, double vinkel, double x, double y) {
