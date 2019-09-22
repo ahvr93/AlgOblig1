@@ -1,6 +1,4 @@
 
-import java.awt.TextArea;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -35,8 +32,8 @@ public class Main extends Application {
     }
   
     public void printTree(int n, double lengde, double vinkel, double x, double y) {
-        double xmove = (double)(Math.cos(Math.toRadians(vinkel+this.vinkel))*lengde);
-        double ymove = (double)(Math.sin(Math.toRadians(vinkel-this.vinkel))*lengde);
+        double xmove = (double)(Math.cos(Math.toRadians(vinkel+90))*lengde);
+        double ymove = (double)(Math.sin(Math.toRadians(vinkel-90))*lengde);
         Line line = new Line();
         if (n==1) {
         	line.setStartX(x);
@@ -45,8 +42,8 @@ public class Main extends Application {
         	line.setEndY(y+ymove);
         	pane.getChildren().add(line);
         }else if(lengde>=30) {
-        	printTree(n-1, lengde-10, vinkel+30, x+xmove, y+ymove);
-        	printTree(n-1, lengde-10, vinkel-30, x+xmove, y+ymove);
+        	printTree(n-1, lengde-10, vinkel+this.vinkel, x+xmove, y+ymove); // Vinkel på greiner
+        	printTree(n-1, lengde-10, vinkel-this.vinkel, x+xmove, y+ymove); // Vinkel på greiner
         	line.setStartX(x);
         	line.setStartY(y);
         	line.setEndX(x+xmove);
