@@ -1,28 +1,42 @@
 
+import java.awt.TextArea;
+
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-    
+    int n = 0;
+    double vinkel;
     Pane pane = new Pane();
      
     public void paint() {
+<<<<<<< refs/remotes/Oblig/master
 <<<<<<< refs/remotes/Oblig/master
         printTree(5,100, 0, 600, 550);    
 =======
         printTree(6,100, 0, 400, 550);    
 >>>>>>> tre
+=======
+        printTree(n, 100, 0, 400, 550);    
+>>>>>>> 123
     }
   
     public void printTree(int n, double lengde, double vinkel, double x, double y) {
-        double xmove = (double)(Math.cos(Math.toRadians(vinkel+90))*lengde);
-        double ymove = (double)(Math.sin(Math.toRadians(vinkel-90))*lengde);
+        double xmove = (double)(Math.cos(Math.toRadians(vinkel+this.vinkel))*lengde);
+        double ymove = (double)(Math.sin(Math.toRadians(vinkel-this.vinkel))*lengde);
         Line line = new Line();
         if (n==1) {
         	line.setStartX(x);
@@ -42,10 +56,51 @@ public class Main extends Application {
     }
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Scene scene = new Scene(pane, 700, 600);
-		primaryStage.setTitle("printTree");
+		BorderPane pane = new BorderPane();
+		VBox meny = new VBox();
+		meny.setPadding(new Insets(20,0,0,100));
+		pane.setLeft(meny);
+		
+		Scene scene = new Scene(pane, 300, 200);
+		primaryStage.setTitle("Tegn tre");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		primaryStage.setResizable(false);
+		
+		// Knapp
+		Button ok = new Button("Vis tre");
+		ok.setMinWidth(100);
+		ok.setMaxWidth(150);
+		
+		
+		// Tekstfelt
+		TextField nivåTxt = new TextField("");
+		TextField vinkelTxt = new TextField("");
+		Label nivåLb = new Label("Nivå: ");
+		Label vinkelLb = new Label("Vinkel: ");
+		TextField status = new TextField("");
+		Label blank = new Label("");
+		Label blank2 = new Label("");
+		status.setEditable(false);
+		meny.getChildren().addAll(nivåLb, nivåTxt, vinkelLb, vinkelTxt, blank, ok, blank2, status);
+		
+		ok.setOnMouseClicked(e -> {
+			if(nivåTxt.getText().equals("") || vinkelTxt.getText().equals("")) {
+				status.setText("Fyll ut alle felter");
+			}else {
+				n = Integer.parseInt(nivåTxt.getText());
+				vinkel = Double.parseDouble(vinkelTxt.getText());
+				tegneBrett();
+			}
+		});	
+	}
+	
+	private void tegneBrett() {
+		Stage subStage = new Stage();
+		subStage.setTitle("Tegnebrett");
+		Scene scene = new Scene(pane, 700, 600);
+		subStage.setScene(scene);
+		subStage.show();
 		paint();
 		
 	}
