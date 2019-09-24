@@ -83,7 +83,7 @@ public class Main extends Application {
 		// Tekstfelt
 		ChoiceBox<Integer> nivåCb = new ChoiceBox<Integer>();
 		nivåCb.getItems().addAll(1,2,3,4,5,6,7,8,9,10);
-		nivåCb.setValue(5);
+		nivåCb.setValue(10);
 		nivåCb.setMinWidth(100);
 		
 		ChoiceBox<Integer> vinkelCb = new ChoiceBox<Integer>();
@@ -98,7 +98,7 @@ public class Main extends Application {
 		
 		ChoiceBox<Integer> greinCb = new ChoiceBox<Integer>();
 		greinCb.getItems().addAll(5, 10, 20, 30, 40, 50);
-		greinCb.setValue(20);
+		greinCb.setValue(10);
 		greinCb.setMinWidth(100);
 		
 		ChoiceBox<Integer> randomCb = new ChoiceBox<Integer>();
