@@ -23,23 +23,26 @@ public class Main extends Application {
     int grein;
     int random;
     int stammeHøyde;
+    // Pane for tre
     Pane pane = new Pane();
      
+    // Metode for å starte
     public void paint() {
         printTree(n, stammeHøyde, 0, 600, 780);    
     }
-  
+    // Tegner tre
     public void printTree(int n, double lengde, double vinkel, double x, double y) {
         double xmove = (double)(Math.cos(Math.toRadians(vinkel+90))*lengde);
         double ymove = (double)(Math.sin(Math.toRadians(vinkel-90))*lengde);
         Line line = new Line();
+        // Tegner de ytterste greinene
         if (n==1) {
         	line.setStartX(x);
         	line.setStartY(y);
         	line.setEndX(x+xmove+random());
         	line.setEndY(y+ymove+random());
         	pane.getChildren().add(line);
-        		
+        // Tegner frem til n=1		
         }else if(lengde>=2 && n!=1) {
         	printTree(n-1, lengde-grein, (vinkel+this.vinkel)+random(), x+xmove, y+ymove); // Vinkel på greiner
             printTree(n-1, lengde-grein, (vinkel-this.vinkel)+random(), x+xmove, y+ymove); // Vinkel på greiner
@@ -50,6 +53,7 @@ public class Main extends Application {
         	pane.getChildren().add(line);
         }
     }
+    // Metode for å bruke random
 	private double random() {
 		double start = random;
 		double end = -random;
@@ -60,6 +64,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		// Pane for meny
 		BorderPane pane = new BorderPane();
 		VBox meny = new VBox();
 		meny.setPadding(new Insets(20,0,0,10));
@@ -80,7 +85,7 @@ public class Main extends Application {
 		kalkulerN.setMaxWidth(150);
 		
 		
-		// Tekstfelt
+		// ChoiseBox
 		ChoiceBox<Integer> nivåCb = new ChoiceBox<Integer>();
 		nivåCb.getItems().addAll(1,2,3,4,5,6,7,8,9,10);
 		nivåCb.setValue(10);
@@ -120,6 +125,7 @@ public class Main extends Application {
 				stammeHøydeCb, stammeLb, greinCb, randomLb, randomCb,kalk,
 				kalkulerN, kalk2 ,status, print, ok);
 		
+		// Henter valgte verdier
 		ok.setOnMouseClicked(e -> {
 				n = nivåCb.getValue();
 				vinkel = vinkelCb.getValue();
@@ -129,7 +135,7 @@ public class Main extends Application {
 				primaryStage.hide();
 				tegneBrett();
 		});	
-		
+		// Enkel kalkulasjon av nivåer i treet
 		kalkulerN.setOnMouseClicked(e -> {
 			int stamme = stammeHøydeCb.getValue();
 			int lengde = greinCb.getValue();
@@ -142,6 +148,7 @@ public class Main extends Application {
 	
 		});	
 	}
+	// Åpner pane for å tegne tre
 	private void tegneBrett() {
 		Scene scene = new Scene(pane, 1200, 800);
 		Stage subStage = new Stage();
