@@ -1,3 +1,5 @@
+// Andreas Hansen van Riesen - 122164
+// Henrik Firing Nystuen - 216726
 
 import java.util.Random;
 
